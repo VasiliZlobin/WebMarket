@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import ru.vasili_zlobin.web_market.model.Product;
 import ru.vasili_zlobin.web_market.repositories.ProductRepository;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ProductService {
@@ -27,5 +29,9 @@ public class ProductService {
 
     public Page<Product> find(Integer pageNumber) {
         return repository.findAll(PageRequest.of(pageNumber - 1, PAGE_SIZE));
+    }
+
+    public List<Product> getProductsList() {
+        return repository.findAll();
     }
 }
