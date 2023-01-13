@@ -1,1 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/web_market
+    username: user_goods
+    password: goods
+  jpa:
+    show_sql: true
+    hibernate:
+      ddl-auto: none
 
+server:
+  port: 8888
+  servlet:
+    context-path: /web_market
+
+jwt:
+  secret: AHy78y845yRT{8d76sh8uHHjh87!)
+  lifetime: 6000000
