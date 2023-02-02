@@ -7,19 +7,19 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class StandardAuthProvider extends AbstractUserDetailsAuthenticationProvider {
     private final AuthenticationService service;
+    private final PasswordEncoder encoder;
 
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
-        if (!Objects.equals(userDetails.getPassword(), authentication.getCredentials())) {
+        if (!encoder.matches(authentication.getCredentials().toString(), userDetails.getPassword())) {
             log.error("Bad credentials for {}", userDetails.getUsername());
             throw new BadCredentialsException("Bad credentials");
         }
