@@ -6,6 +6,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import ru.vasili_zlobin.web_market.core.converters.ProductConverter;
 import ru.vasili_zlobin.web_market.core.model.Product;
 import ru.vasili_zlobin.web_market.core.repositories.ProductRepository;
 
@@ -18,6 +19,7 @@ public class ProductService {
     private static final int PAGE_SIZE = 10;
 
     private final ProductRepository repository;
+    private final ProductConverter productConverter;
 
     @EventListener(ApplicationReadyEvent.class)
     public void fillDatabase() {

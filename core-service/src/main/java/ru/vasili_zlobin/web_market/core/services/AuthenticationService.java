@@ -8,8 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.vasili_zlobin.web_market.core.repositories.UserRepository;
 import ru.vasili_zlobin.web_market.core.model.User;
+import ru.vasili_zlobin.web_market.core.repositories.UserRepository;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
