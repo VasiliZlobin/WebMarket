@@ -43,11 +43,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-//    @Bean
-//    public WebSecurityCustomizer webSecurityCustomizer() {
-//        return webSecurity -> webSecurity.ignoring().requestMatchers("/auth");
-//    }
-
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationProvider...providers) {
         return new ProviderManager(providers);

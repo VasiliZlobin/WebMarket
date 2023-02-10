@@ -1,8 +1,8 @@
 package ru.vasili_zlobin.web_market.core.converters;
 
 import org.springframework.stereotype.Component;
-import ru.vasili_zlobin.web_market.core.dto.ProductDto;
 import ru.vasili_zlobin.web_market.core.model.Product;
+import ru.vasili_zlobin.web_market.api.dto.ProductDto;
 
 @Component
 public class ProductConverter {

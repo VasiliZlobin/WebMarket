@@ -6,6 +6,8 @@ import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ru.vasili_zlobin.web_market.api.exceptions.ResourceNotFoundException;
 import ru.vasili_zlobin.web_market.core.converters.ProductConverter;
 import ru.vasili_zlobin.web_market.core.model.Product;
 import ru.vasili_zlobin.web_market.core.repositories.ProductRepository;
@@ -35,5 +37,20 @@ public class ProductService {
 
     public List<Product> getProductsList() {
         return repository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public Product getProductById(Long id) {
+        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(String.format("Товар с id %d не найден", id)));
+    }
+
+    @Transactional
+    public void updateProduct(Product product) {
+        repository.save(product);
+    }
+
+    @Transactional
+    public void deleteById(Long id) {
+        repository.deleteById(id);
     }
 }

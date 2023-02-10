@@ -8,8 +8,8 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import ru.vasili_zlobin.web_market.core.dto.JwtRequest;
-import ru.vasili_zlobin.web_market.core.dto.JwtResponse;
+import ru.vasili_zlobin.web_market.api.dto.JwtRequest;
+import ru.vasili_zlobin.web_market.api.dto.JwtResponse;
 import ru.vasili_zlobin.web_market.core.services.AuthenticationService;
 import ru.vasili_zlobin.web_market.core.utils.JwtTokenUtils;
 
