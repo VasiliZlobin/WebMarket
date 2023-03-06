@@ -2,26 +2,32 @@ package ru.vasili_zlobin.web_market.carts.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.vasili_zlobin.web_market.api.dto.ProductDto;
 import ru.vasili_zlobin.web_market.carts.model.Cart;
+
+import java.util.HashMap;
 
 @Service
 @RequiredArgsConstructor
 public class CartService {
-   private final Cart cart;
+   private final HashMap<String, Cart> carts;
 
-    public void change(Long id, Integer delta) {
+    public void change(String key, ProductDto productDto, Integer delta) {
+        Cart cart = carts.get(key);
         if (delta == 1) {
-            cart.add(id);
+            cart.add(productDto);
         } else {
-            cart.remove(id);
+            cart.remove(productDto.getId());
         }
     }
 
-    public void delete(Long id) {
-        cart.deleteAll(id);
+    public void delete(String key, Long id) {
     }
 
-    public Integer getQuantity(Long id) {
-        return cart.getQuantity(id);
+    public Integer getQuantity(String key, Long id) {
+        if (carts.containsKey(key)) {
+            return carts.get(key).getQuantity(id);
+        }
+        return 0;
     }
 }

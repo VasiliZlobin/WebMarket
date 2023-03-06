@@ -2,14 +2,14 @@ package ru.vasili_zlobin.web_market.api.dto;
 
 import java.math.BigDecimal;
 
-public class CartItem {
+public class CartItemDto {
     private Long id;
     private String title;
     private int quantity;
     private BigDecimal price;
     private BigDecimal totalCost;
 
-    public CartItem(Long id, String title, int quantity, BigDecimal price, BigDecimal totalCost) {
+    public CartItemDto(Long id, String title, int quantity, BigDecimal price, BigDecimal totalCost) {
         this.id = id;
         this.title = title;
         this.quantity = quantity;
@@ -17,7 +17,7 @@ public class CartItem {
         this.totalCost = totalCost;
     }
 
-    public CartItem() {
+    public CartItemDto() {
     }
 
     public Long getId() {
