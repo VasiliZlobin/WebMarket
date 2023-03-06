@@ -1,13 +1,13 @@
 package ru.vasili_zlobin.web_market.carts.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.vasili_zlobin.springdatajpa.model.Cart;
+import ru.vasili_zlobin.web_market.carts.model.Cart;
 
 @Service
+@RequiredArgsConstructor
 public class CartService {
-    @Autowired
-    private Cart cart;
+   private final Cart cart;
 
     public void change(Long id, Integer delta) {
         if (delta == 1) {

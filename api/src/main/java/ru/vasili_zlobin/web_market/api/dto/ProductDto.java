@@ -1,10 +1,13 @@
 package ru.vasili_zlobin.web_market.api.dto;
 
+import java.math.BigDecimal;
+
 public class ProductDto {
 
     private Long id;
     private String title;
-    private Double price;
+    private BigDecimal price;
+    private Integer quantityInCart;
 
     public ProductDto() {
     }
@@ -25,11 +28,19 @@ public class ProductDto {
         this.title = title;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Integer getQuantityInCart() {
+        return quantityInCart;
+    }
+
+    public void setQuantityInCart(Integer quantityInCart) {
+        this.quantityInCart = quantityInCart;
     }
 }

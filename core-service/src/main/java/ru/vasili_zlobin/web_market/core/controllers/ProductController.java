@@ -27,7 +27,6 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ProductDto getProduct(@PathVariable Long id) {
-
         return productConverter.entityToDto(productService.getProductById(id));
     }
 

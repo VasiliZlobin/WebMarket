@@ -12,6 +12,7 @@ import ru.vasili_zlobin.web_market.core.converters.ProductConverter;
 import ru.vasili_zlobin.web_market.core.model.Product;
 import ru.vasili_zlobin.web_market.core.repositories.ProductRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -27,7 +28,7 @@ public class ProductService {
     public void fillDatabase() {
         Long count = MIN_RECORDS - repository.count();
         for (int i = 1; i <= count ; i++) {
-            repository.save(new Product(String.format("Товар № %d", i), Math.random() * 100));
+            repository.save(new Product(String.format("Товар № %d", i), BigDecimal.valueOf(Math.random() * 100)));
         }
     }
 
