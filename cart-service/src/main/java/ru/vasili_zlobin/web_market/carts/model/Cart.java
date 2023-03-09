@@ -1,31 +1,49 @@
 package ru.vasili_zlobin.web_market.carts.model;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import ru.vasili_zlobin.web_market.api.dto.ProductDto;
+import ru.vasili_zlobin.web_market.carts.converters.CartItemConverter;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@RequiredArgsConstructor
 public class Cart {
-    private final Map<Long, Integer> goods = new HashMap<>();
-    public Cart() {
+    private Map<Long, CartItem> goods = new HashMap<>();
+    private final CartItemConverter cartItemConverter;
+
+
+    private void calculateTotalCost(CartItem item) {
+        item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity()));
     }
-    public void add(Long id) {
+    public void add(ProductDto productDto) {
         int quantity = 0;
-        if (goods.containsKey(id)) {
-            quantity = goods.get(id);
+        Long id = productDto.getId();
+        if (!goods.containsKey(id)) {
+            goods.put(id, cartItemConverter.productDtoToEntity(productDto));
         }
-        goods.put(id, quantity + 1);
+        CartItem item = goods.get(id);
+        item.setQuantity(item.getQuantity() + 1);
+        calculateTotalCost(item);
     }
+
     public void remove(Long id) {
         if (!goods.containsKey(id)) {
             return;
         }
-        int quantity = goods.get(id);
+        CartItem item = goods.get(id);
+        int quantity = item.getQuantity();
         if (quantity < 2) {
             goods.remove(id);
         } else {
-            goods.put(id, quantity - 1);
+            item.setQuantity(quantity - 1);
+            calculateTotalCost(item);
         }
     }
 
@@ -38,7 +56,7 @@ public class Cart {
     public Integer getQuantity(Long id) {
         Integer result = 0;
         if (goods.containsKey(id)) {
-            result = goods.get(id);
+            result = goods.get(id).getQuantity();
         }
         return result;
     }
