@@ -1,11 +1,8 @@
 package ru.vasili_zlobin.web_market.carts.model;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import ru.vasili_zlobin.web_market.api.dto.ProductDto;
-import ru.vasili_zlobin.web_market.carts.converters.CartItemConverter;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -13,24 +10,15 @@ import java.util.Map;
 
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-@RequiredArgsConstructor
 public class Cart {
     private Map<Long, CartItem> goods = new HashMap<>();
-    private final CartItemConverter cartItemConverter;
-
 
     private void calculateTotalCost(CartItem item) {
-        item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity()));
+        item.setTotalCost(item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
     }
-    public void add(ProductDto productDto) {
-        int quantity = 0;
-        Long id = productDto.getId();
-        if (!goods.containsKey(id)) {
-            goods.put(id, cartItemConverter.productDtoToEntity(productDto));
-        }
-        CartItem item = goods.get(id);
-        item.setQuantity(item.getQuantity() + 1);
-        calculateTotalCost(item);
+
+    public void add(CartItem item) {
+        goods.put(item.getId(), item);
     }
 
     public void remove(Long id) {
