@@ -10,12 +10,13 @@ import java.math.BigDecimal;
 @Component
 public class CartItemConverter {
     public CartItem productDtoToEntity(ProductDto dto) {
-        CartItem item = new CartItem();
-        item.setTitle(dto.getTitle());
-        item.setPrice(dto.getPrice());
-        item.setQuantity(0);
-        item.setTotalCost(BigDecimal.ZERO);
-        return item;
+        return CartItem.builder()
+                .id(dto.getId())
+                .title(dto.getTitle())
+                .price(dto.getPrice())
+                .quantity(0)
+                .totalCost(BigDecimal.ZERO)
+                .build();
     }
     public CartItemDto entityToCartItemDto(CartItem item) {
         CartItemDto dto = new CartItemDto();
@@ -25,5 +26,16 @@ public class CartItemConverter {
         dto.setTitle(item.getTitle());
         dto.setTotalCost(item.getTotalCost());
         return dto;
+    }
+
+    public CartItem cartItemDtoToEntity(CartItemDto dto) {
+        return CartItem.builder()
+                .id(dto.getId())
+                .title(dto.getTitle())
+                .price(dto.getPrice())
+                .quantity(dto.getQuantity())
+                .totalCost(dto.getTotalCost())
+                .build();
+
     }
 }
